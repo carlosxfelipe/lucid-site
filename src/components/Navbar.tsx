@@ -6,6 +6,7 @@ type Props = { currentPath?: string };
 
 const links = [
   { href: "/", label: "Início" },
+  { href: "/demo", label: "Demo" },
   { href: "/contact", label: "Contato" },
 ];
 
