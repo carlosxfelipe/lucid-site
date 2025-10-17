@@ -1,0 +1,46 @@
+{
+  "tasks": {
+    "serve": "deno run --allow-read --allow-net -q server.ts",
+    "bundle": "deno bundle --outdir dist src/index.html && mkdir -p dist/styles && cp src/styles/output.css dist/styles/ && deno run -A scripts/copy_redirects.ts",
+    "clean": "rm -rf dist",
+    "tailwind:build": "npx tailwindcss -i src/styles/tailwind.css -o src/styles/output.css --config tailwind.config.js",
+    "tailwind:watch": "npx tailwindcss -i src/styles/tailwind.css -o src/styles/output.css --config tailwind.config.js --watch",
+    "dev": "deno task tailwind:build && deno task serve",
+    "start": "deno task clean && deno task tailwind:build && deno task bundle && deno task serve"
+  },
+  "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "h",
+    "strict": true,
+    "lib": [
+      "dom",
+      "esnext",
+      "deno.ns"
+    ],
+    "types": [
+      "./lucid-js/jsx.d.ts"
+    ]
+  },
+  "imports": {
+    "@std/collections": "jsr:@std/collections@^1.1.3",
+    "@std/fmt": "jsr:@std/fmt@^1.0.8",
+    "@std/http/file-server": "jsr:@std/http/file-server",
+    "@std/path": "jsr:@std/path@^1.0.8",
+    "tailwindcss": "npm:tailwindcss@^3.4.0",
+    "autoprefixer": "npm:autoprefixer@^10.4.16",
+    "@lucid/": "./lucid-js/",
+    "@src/": "./src/",
+    "@components/": "./src/components/",
+    "@demo/": "./src/demo/",
+    "@icons/": "./src/icons/",
+    "@layout/": "./src/layout/",
+    "@lib/": "./src/lib/",
+    "@pages/": "./src/pages/",
+    "@router/": "./src/router/",
+    "@std/testing": "jsr:@std/testing@^1.0.16",
+    "@store/": "./src/store/",
+    "@styles/": "./src/styles/",
+    "@theme/": "./src/theme/",
+    "@utils/": "./src/utils/"
+  }
+}

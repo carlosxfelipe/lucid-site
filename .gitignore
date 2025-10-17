@@ -1,0 +1,103 @@
+# === Operating Systems ===
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.exe
+*.msi
+*.msix
+
+# Linux
+*~
+
+# === Deno ===
+# Deno cache
+.deno/
+deno.lock
+
+# === Node.js / NPM ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn/
+.pnp.*
+
+# === Build Output ===
+dist/
+build/
+out/
+coverage/
+
+# === Tailwind CSS ===
+# Generated CSS (keep the source, ignore compiled)
+src/styles/output.css
+
+# === Logs ===
+*.log
+logs/
+lerna-debug.log*
+.yarn-integrity
+
+# === Environment Variables ===
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# === IDEs and Editors ===
+# VSCode
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# === Temporary Files ===
+*.tmp
+*.temp
+.cache/
+.parcel-cache/
+
+# === Runtime Data ===
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# === Optional Dependencies ===
+.nyc_output
+
+# === TypeScript ===
+*.tsbuildinfo
