@@ -3,6 +3,7 @@ import { startRouter, useLocation } from "@router/router.tsx";
 import HomePage from "@pages/HomePage.tsx";
 import ContactPage from "@pages/ContactPage.tsx";
 import DemoPage from "@pages/DemoPage.tsx";
+import StartPage from "@pages/StartPage.tsx";
 import { listenThemeStorage } from "@theme/theme.ts";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         const path = location();
         if (path === "/") return <HomePage />;
         if (path === "/demo") return <DemoPage />;
+        if (path === "/start") return <StartPage />;
         if (path === "/contact") return <ContactPage />;
 
         return (
