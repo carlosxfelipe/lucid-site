@@ -1,5 +1,5 @@
 import { createEffect } from "./core.ts";
-import { normalizeToNodes, clearRange } from "./core.ts";
+import { clearRange, normalizeToNodes } from "./core.ts";
 import type { Child } from "./core.ts";
 
 export function Show(props: { when: () => unknown; children: Child }) {
@@ -57,8 +57,9 @@ export function For<T>(props: {
   function getRenderer(): Renderer<T> | undefined {
     const c = props.children as unknown;
     if (typeof c === "function") return c as Renderer<T>;
-    if (Array.isArray(c) && typeof c[0] === "function")
+    if (Array.isArray(c) && typeof c[0] === "function") {
       return c[0] as Renderer<T>;
+    }
     return undefined;
   }
 
@@ -77,8 +78,7 @@ export function For<T>(props: {
     const kf = props.key;
 
     if (!kf) {
-      const same =
-        prevList &&
+      const same = prevList &&
         prevList.length === list.length &&
         list.every((it, i) => it === (prevList as T[])[i]);
       if (same) return;

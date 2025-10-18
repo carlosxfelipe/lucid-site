@@ -211,43 +211,18 @@ Seniores: ${seniors.length} | Juniores: ${juniors.length}`,
           </table>
         </div>
 
-        <details class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-          <summary class="cursor-pointer text-lg font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
-            <strong>O que está sendo demonstrado</strong>
-          </summary>
-          <ul class="mt-4 space-y-2 list-disc list-inside text-gray-700 dark:text-gray-300">
-            <li>
-              <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono">
-                distinct()
-              </code>{" "}
-              – Extrair roles únicos
-            </li>
-            <li>
-              <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono">
-                maxBy()
-              </code>{" "}
-              – Encontrar usuário mais velho
-            </li>
-            <li>
-              <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono">
-                sumOf()
-              </code>{" "}
-              – Somar todos os salários
-            </li>
-            <li>
-              <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono">
-                partition()
-              </code>{" "}
-              – Separar por seniores e juniores
-            </li>
-            <li>
-              <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono">
-                reduce()
-              </code>{" "}
-              – Agrupamento manual por cidade
-            </li>
+        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+          <h4 class="font-semibold text-green-900 dark:text-green-300 mb-2">
+            O que está sendo demonstrado:
+          </h4>
+          <ul class="text-sm text-green-800 dark:text-green-300 space-y-1">
+            <li>• distinct() - Extrair roles únicos de uma lista</li>
+            <li>• maxBy() - Encontrar usuário com maior idade</li>
+            <li>• sumOf() - Somar todos os salários da equipe</li>
+            <li>• partition() - Separar usuários por critério de idade</li>
+            <li>• reduce() - Agrupamento manual de dados por cidade</li>
           </ul>
-        </details>
+        </div>
       </div>
     </section>
   );

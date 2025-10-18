@@ -1,4 +1,4 @@
-import { createSignal, createEffect } from "@lucid/index.ts";
+import { createEffect, createSignal } from "@lucid/index.ts";
 
 type Listener = () => void;
 type SetFn<T> = Partial<T> | ((prev: T) => Partial<T>);
@@ -12,7 +12,7 @@ type CreateStoreOptions<T> = {
 
 export function createStore<T extends object>(
   initializer: (set: (fn: SetFn<T>) => void, get: () => T) => T,
-  opts: CreateStoreOptions<T> = {}
+  opts: CreateStoreOptions<T> = {},
 ) {
   const key = opts.name ?? "__app_store__";
   const version = opts.version ?? 1;
@@ -36,8 +36,9 @@ export function createStore<T extends object>(
 
   const get = () => state();
   const set = (fn: SetFn<T>) => {
-    const partial =
-      typeof fn === "function" ? (fn as (p: T) => Partial<T>)(state()) : fn;
+    const partial = typeof fn === "function"
+      ? (fn as (p: T) => Partial<T>)(state())
+      : fn;
     if (!partial || typeof partial !== "object") return;
     const next = Object.assign({}, state(), partial);
     if (Object.is(next, state())) return;
@@ -58,7 +59,7 @@ export function createStore<T extends object>(
       try {
         globalThis.localStorage?.setItem(
           key,
-          JSON.stringify({ v: version, s })
+          JSON.stringify({ v: version, s }),
         );
         // deno-lint-ignore no-empty
       } catch {}
@@ -81,7 +82,7 @@ export function createStore<T extends object>(
 
   function select<S>(
     selector: (s: T) => S,
-    equality: (a: S, b: S) => boolean = Object.is
+    equality: (a: S, b: S) => boolean = Object.is,
   ) {
     const [sel, setSel] = createSignal<S>(selector(state()));
     createEffect(() => {

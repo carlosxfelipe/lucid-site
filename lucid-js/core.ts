@@ -62,7 +62,7 @@ export function batch<T>(f: () => T): T {
 }
 
 export function createSignal<T>(
-  initial: T
+  initial: T,
 ): [() => T, (v: T | ((p: T) => T)) => void] {
   const s: Signal<T> = {
     value: initial,
@@ -75,8 +75,9 @@ export function createSignal<T>(
       return s.value;
     },
     set(next) {
-      const v =
-        typeof next === "function" ? (next as (p: T) => T)(s.value) : next;
+      const v = typeof next === "function"
+        ? (next as (p: T) => T)(s.value)
+        : next;
       if (Object.is(v, s.value)) return;
       s.value = v;
       for (const sub of s.subs) PENDING.add(sub);
@@ -102,6 +103,15 @@ export function onCleanup(cb: Cleanup) {
   CURRENT.cleanups.push(cb);
 }
 
+export function onMount(fn: () => void | Cleanup) {
+  createEffect(() => {
+    const cleanup = fn();
+    if (cleanup && typeof cleanup === "function") {
+      onCleanup(cleanup);
+    }
+  });
+}
+
 export function createRoot<T>(fn: (dispose: () => void) => T): T {
   const root: Computation = {
     fn: () => {},
@@ -125,6 +135,54 @@ export function createRoot<T>(fn: (dispose: () => void) => T): T {
   } finally {
     CURRENT = prev;
   }
+}
+
+type Context<T> = {
+  id: symbol;
+  defaultValue: T;
+  Provider: (props: { value: T; children: Child[] }) => DocumentFragment;
+};
+
+const CONTEXT_VALUES = new Map<symbol, unknown>();
+
+export function createContext<T>(defaultValue: T): Context<T> {
+  const id = Symbol("context");
+
+  const Provider = (
+    props: { value: T; children: Child[] },
+  ): DocumentFragment => {
+    const fragment = document.createDocumentFragment();
+    const prevValue = CONTEXT_VALUES.get(id);
+
+    CONTEXT_VALUES.set(id, props.value);
+
+    for (const child of props.children) {
+      const nodes = normalizeToNodes(child);
+      for (const node of nodes) {
+        fragment.appendChild(node);
+      }
+    }
+
+    onCleanup(() => {
+      if (prevValue !== undefined) {
+        CONTEXT_VALUES.set(id, prevValue);
+      } else {
+        CONTEXT_VALUES.delete(id);
+      }
+    });
+    return fragment;
+  };
+
+  return {
+    id,
+    defaultValue,
+    Provider,
+  };
+}
+
+export function useContext<T>(context: Context<T>): T {
+  const value = CONTEXT_VALUES.get(context.id);
+  return value !== undefined ? (value as T) : context.defaultValue;
 }
 
 export type Child =
@@ -156,7 +214,7 @@ function camelToKebab(k: string) {
 }
 
 function normalizeStyle(
-  input: string | StyleObject | null | undefined
+  input: string | StyleObject | null | undefined,
 ): Record<string, string> {
   if (!input) return {};
   if (typeof input === "string") {
@@ -173,8 +231,11 @@ function normalizeStyle(
   const out: Record<string, string> = {};
   for (const k in input) {
     const v = input[k];
-    out[camelToKebab(k)] =
-      v == null ? "" : typeof v === "number" ? String(v) : String(v);
+    out[camelToKebab(k)] = v == null
+      ? ""
+      : typeof v === "number"
+      ? String(v)
+      : String(v);
   }
   return out;
 }
@@ -224,7 +285,7 @@ function setAttr(el: Element, name: string, value: unknown) {
     if (isSignalGetter(value)) {
       createEffect(() => {
         const v = (value as () => unknown)();
-        applyStyle(elh, normalizeStyle(v as any));
+        applyStyle(elh, normalizeStyle(v as string | StyleObject));
       });
       return;
     }
@@ -319,8 +380,9 @@ export function normalizeToNodes(value: unknown): Node[] {
   if (value instanceof Node) return [value];
   if (Array.isArray(value)) {
     const out: Node[] = [];
-    for (const v of (value as unknown[]).flat())
+    for (const v of (value as unknown[]).flat()) {
       out.push(...normalizeToNodes(v));
+    }
     return out;
   }
   return [document.createTextNode(String(value))];
@@ -371,8 +433,9 @@ function appendDynamic(parent: Node, getter: () => unknown) {
 function appendStatic(parent: Node, child: Exclude<Child, () => unknown>) {
   if (child == null || child === false || child === true) return;
   if (Array.isArray(child)) {
-    for (const c of child)
+    for (const c of child) {
       appendStatic(parent, c as Exclude<Child, () => unknown>);
+    }
     return;
   }
   if (child instanceof Node) {
@@ -383,62 +446,64 @@ function appendStatic(parent: Node, child: Exclude<Child, () => unknown>) {
 }
 
 type Component<P = Record<string, unknown>> = (
-  props: P & { children?: Child[] }
+  props: P & { children?: Child[] },
 ) => Node;
 
 const SVG_NS = "http://www.w3.org/2000/svg";
-const SVG_TAGS = new Set([
-  "svg",
-  "path",
-  "g",
-  "defs",
-  "clipPath",
-  "mask",
-  "pattern",
-  "linearGradient",
-  "radialGradient",
-  "stop",
-  "circle",
-  "ellipse",
-  "line",
-  "polyline",
-  "polygon",
-  "rect",
-  "use",
-  "symbol",
-  "marker",
-  "text",
-  "tspan",
-  "textPath",
-  "foreignObject",
-  "filter",
-  "feGaussianBlur",
-  "feOffset",
-  "feBlend",
-  "feColorMatrix",
-  "feComponentTransfer",
-  "feComposite",
-  "feConvolveMatrix",
-  "feDiffuseLighting",
-  "feDisplacementMap",
-  "feDistantLight",
-  "feFlood",
-  "feFuncA",
-  "feFuncB",
-  "feFuncG",
-  "feFuncR",
-  "feImage",
-  "feMerge",
-  "feMergeNode",
-  "feMorphology",
-  "fePointLight",
-  "feSpecularLighting",
-  "feSpotLight",
-  "feTile",
-  "feTurbulence",
-  "title",
-  "desc",
-] as const);
+const SVG_TAGS = new Set(
+  [
+    "svg",
+    "path",
+    "g",
+    "defs",
+    "clipPath",
+    "mask",
+    "pattern",
+    "linearGradient",
+    "radialGradient",
+    "stop",
+    "circle",
+    "ellipse",
+    "line",
+    "polyline",
+    "polygon",
+    "rect",
+    "use",
+    "symbol",
+    "marker",
+    "text",
+    "tspan",
+    "textPath",
+    "foreignObject",
+    "filter",
+    "feGaussianBlur",
+    "feOffset",
+    "feBlend",
+    "feColorMatrix",
+    "feComponentTransfer",
+    "feComposite",
+    "feConvolveMatrix",
+    "feDiffuseLighting",
+    "feDisplacementMap",
+    "feDistantLight",
+    "feFlood",
+    "feFuncA",
+    "feFuncB",
+    "feFuncG",
+    "feFuncR",
+    "feImage",
+    "feMerge",
+    "feMergeNode",
+    "feMorphology",
+    "fePointLight",
+    "feSpecularLighting",
+    "feSpotLight",
+    "feTile",
+    "feTurbulence",
+    "title",
+    "desc",
+  ] as const,
+);
 
 export function h(
   tag: string | Component<Record<string, unknown>>,
@@ -459,7 +524,7 @@ export function h(
   }
 
   const isSvg = SVG_TAGS.has(
-    tag as typeof SVG_TAGS extends Set<infer U> ? U : never
+    tag as typeof SVG_TAGS extends Set<infer U> ? U : never,
   );
   const el = isSvg
     ? document.createElementNS(SVG_NS, tag)
