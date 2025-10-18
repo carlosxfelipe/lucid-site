@@ -211,9 +211,9 @@ Seniores: ${seniors.length} | Juniores: ${juniors.length}`,
           </table>
         </div>
 
-        <details class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+        <details class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
           <summary class="cursor-pointer text-lg font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
-            O que está sendo demonstrado
+            <strong>O que está sendo demonstrado</strong>
           </summary>
           <ul class="mt-4 space-y-2 list-disc list-inside text-gray-700 dark:text-gray-300">
             <li>
