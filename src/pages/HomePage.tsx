@@ -64,6 +64,47 @@ export default function HomePage() {
             </p>
 
             <p>
+              As semelhanças com{" "}
+              <span class="font-semibold text-orange-600 dark:text-orange-400">
+                SolidJS
+              </span>{" "}
+              são intencionais e notáveis: ambos utilizam{" "}
+              <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">
+                createSignal()
+              </code>{" "}
+              para reatividade granular,{" "}
+              <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">
+                createEffect()
+              </code>{" "}
+              para side effects,{" "}
+              <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">
+                createMemo()
+              </code>{" "}
+              para computações cachadas e lifecycle hooks como{" "}
+              <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">
+                onMount()
+              </code>{" "}
+              e{" "}
+              <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">
+                onCleanup()
+              </code>
+              . O LucidJS também implementa{" "}
+              <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">
+                createContext()
+              </code>{" "}
+              para gerenciamento de estado global, control flow com{" "}
+              <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">
+                Switch/Match
+              </code>{" "}
+              e até mesmo{" "}
+              <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">
+                batch()
+              </code>{" "}
+              para otimização de atualizações — alcançando cerca de 85% de
+              compatibilidade conceitual com a API do SolidJS.
+            </p>
+
+            <p>
               O foco do projeto é proporcionar uma experiência fluida de
               desenvolvimento — sem camadas desnecessárias — permitindo criar
               componentes dinâmicos com um modelo mental direto, onde o estado

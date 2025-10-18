@@ -1,14 +1,16 @@
 import { h } from "@lucid/index.ts";
 import { themeStore } from "@store/theme.ts";
 import Icon from "@icons/Icon.tsx";
+import Logo from "@components/Logo.tsx";
+import type { IconName } from "@icons/paths.ts";
 
 type Props = { currentPath?: string };
 
-const links = [
-  { href: "/", label: "Início" },
-  { href: "/start", label: "Start" },
-  { href: "/demo", label: "Demo" },
-  { href: "/contact", label: "Contato" },
+const links: Array<{ href: string; label: string; icon: IconName }> = [
+  { href: "/", label: "Início", icon: "home-outline" },
+  { href: "/start", label: "Get started", icon: "pokeball" },
+  { href: "/demo", label: "Demo", icon: "package-variant" },
+  { href: "/contact", label: "Contato", icon: "email" },
 ];
 
 export default function Navbar({ currentPath = "/" }: Props) {
@@ -16,24 +18,25 @@ export default function Navbar({ currentPath = "/" }: Props) {
     <header class="w-full h-16 flex items-center border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 mb-3">
       <nav class="container mx-auto px-4 flex items-center">
         {/* Logo */}
-        <a href="/" aria-label="Logo" class="flex items-center">
-          <Icon name="typescript" size={48} ariaLabel="typescript" />
-        </a>
+        <Logo />
 
         {/* Links */}
         <ul class="flex items-center gap-4 ml-auto mr-4 p-0 list-none">
-          {links.map(({ href, label }) => {
+          {links.map(({ href, label, icon }) => {
             const active = currentPath === href;
             return (
               <li class="flex items-center">
                 <a
                   href={href}
                   aria-current={active ? "page" : undefined}
-                  class={active
-                    ? "text-blue-600 dark:text-blue-400 font-semibold"
-                    : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"}
+                  class={`flex items-center gap-2 ${
+                    active
+                      ? "text-blue-600 dark:text-blue-400 font-semibold"
+                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  }`}
                 >
-                  {label}
+                  <Icon name={icon} size={20} ariaLabel={label} />
+                  <span class="hidden md:inline">{label}</span>
                 </a>
               </li>
             );

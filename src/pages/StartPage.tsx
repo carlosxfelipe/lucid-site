@@ -140,14 +140,14 @@ export default function StartPage() {
                   <strong class="text-gray-900 dark:text-white">
                     Node.js
                   </strong>. Ele surgiu como uma alternativa moderna ao Node,
-                  com foco em
+                  com foco em{" "}
                   <strong class="text-green-600 dark:text-green-400">
                     segurança
                   </strong>,{" "}
                   <strong class="text-green-600 dark:text-green-400">
                     simplicidade
                   </strong>{" "}
-                  e
+                  e{" "}
                   <strong class="text-green-600 dark:text-green-400">
                     suporte nativo a TypeScript
                   </strong>, competindo diretamente com
