@@ -1,6 +1,7 @@
 import { h } from "@lucid/index.ts";
 import Layout from "@layout/Layout.tsx";
 import Icon from "@icons/Icon.tsx";
+import { fullExample } from "@lib/examples.ts";
 
 export default function StartPage() {
   const lucidCDN =
@@ -30,120 +31,6 @@ export default function StartPage() {
       </button>
     </div>
   );
-
-  const fullExample = `<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contador Interativo com Lucid.js</title>
-    <style>
-      :root {
-        --bg: #fff;
-        --fg: #111;
-        --muted: #666;
-        --border: #e5e7eb;
-        --primary: #2563eb;
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-        color: var(--fg);
-        background: var(--bg);
-      }
-      .container { max-width: 640px; margin: 0 auto; padding: 16px; }
-      .card { border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
-      h1, h2 { text-align: center; margin: 0 0 .75rem; }
-      .btn {
-        appearance: none;
-        border: 1px solid var(--border);
-        background: #fff;
-        padding: .5rem .75rem;
-        border-radius: .5rem;
-        cursor: pointer;
-        transition: filter .15s ease;
-      }
-      .btn:hover { filter: brightness(0.98); }
-      .btn--primary { background: var(--primary); border-color: var(--primary); color: #fff; }
-      .btn--danger { background: #ef4444; border-color: #ef4444; color: #fff; }
-      .group-grid[role="group"] {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: .5rem;
-        margin: .75rem 0;
-      }
-      .muted { color: var(--muted); text-align: center; }
-      .tags {
-        display: flex; gap: .25rem; flex-wrap: wrap;
-        justify-content: center; margin-top: .5rem;
-      }
-      .tag {
-        display: inline-block;
-        padding: .25rem .5rem;
-        border: 1px solid var(--border);
-        border-radius: .25rem;
-        font-size: .875rem;
-      }
-      @media (min-width: 600px) {
-        .group-grid[role="group"] {
-          grid-template-columns: repeat(4, auto);
-          justify-content: center;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <main class="container">
-      <h1>Contador Interativo</h1>
-      <div id="app"></div>
-    </main>
-
-    <script type="module">
-      // import * as Lucid from "./lucid.min.js";
-      import * as Lucid from 
-        "https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/cdn/lucid.min.js";
-      const { h, mount, createSignal, createMemo, Show, For, batch } = Lucid;
-
-      const App = () => {
-        const [count, setCount] = createSignal(0);
-        const doubled = createMemo(() => count() * 2);
-        const plusTwo = () => batch(() => { setCount(c => c + 1); setCount(c => c + 1); });
-
-        return h(
-          "article",
-          { class: "card" },
-          h("header", null, h("h2", null, "Contador")),
-          h("p", null, "Valor: ", count, " • Dobro: ", doubled),
-          h(
-            "div",
-            { role: "group", class: "group-grid" },
-            h("button", { class: "btn", onClick: () => setCount(c => Math.max(0, c - 1)) }, "−1"),
-            h("button", { class: "btn btn--primary", onClick: () => setCount(c => c + 1) }, "+1"),
-            h("button", { class: "btn btn--primary", onClick: plusTwo }, "+2 (batch)"),
-            h("button", { class: "btn btn--danger", onClick: () => setCount(0) }, "reset"),
-          ),
-          Show({
-            when: () => count() > 0,
-            children: h("p", { class: "muted" }, "Listando itens de 0 até ", count),
-          }),
-          h(
-            "div",
-            { class: "tags" },
-            For({
-              each: () => Array.from({ length: count() }, (_, i) => i),
-              children: (i) => h("span", { class: "tag" }, String(i)),
-            }),
-          ),
-        );
-      };
-
-      mount(h(App), document.querySelector("#app"));
-    </script>
-  </body>
-</html>
-`;
 
   return (
     <Layout>
@@ -345,34 +232,40 @@ export default function StartPage() {
                   </span>
                   Abrir o VSCode
                 </li>
-                <li class="flex items-center">
-                  <span class="bg-blue-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">
+                <li class="flex items-start sm:items-center">
+                  <span class="bg-blue-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5 sm:mt-0">
                     2
                   </span>
-                  Ir em{" "}
-                  <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm mx-1">
-                    View
-                  </kbd>
-                  {" → "}
-                  <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm mx-1">
-                    Extensions
-                  </kbd>
+                  <div class="flex flex-wrap items-center gap-1">
+                    <span>Ir em</span>
+                    <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">
+                      View
+                    </kbd>
+                    <span>→</span>
+                    <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">
+                      Extensions
+                    </kbd>
+                  </div>
                 </li>
-                <li class="flex items-center">
-                  <span class="bg-blue-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">
+                <li class="flex items-start sm:items-center">
+                  <span class="bg-blue-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5 sm:mt-0">
                     3
                   </span>
-                  Pesquisar por{" "}
-                  <strong class="text-gray-900 dark:text-white">Deno</strong>
+                  <div class="flex flex-wrap items-center gap-1">
+                    <span>Pesquisar por</span>
+                    <strong class="text-gray-900 dark:text-white">Deno</strong>
+                  </div>
                 </li>
-                <li class="flex items-center">
-                  <span class="bg-blue-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">
+                <li class="flex items-start sm:items-center">
+                  <span class="bg-blue-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5 sm:mt-0">
                     4
                   </span>
-                  Instalar{" "}
-                  <em class="text-purple-600 dark:text-purple-400">
-                    denoland.vscode-deno
-                  </em>
+                  <div class="flex flex-wrap items-center gap-1">
+                    <span>Instalar</span>
+                    <em class="text-purple-600 dark:text-purple-400">
+                      denoland.vscode-deno
+                    </em>
+                  </div>
                 </li>
               </ol>
             </div>
