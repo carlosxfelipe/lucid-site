@@ -1,7 +1,7 @@
 {
   "tasks": {
     "serve": "deno run --allow-read --allow-net -q server.ts",
-    "bundle": "deno bundle --outdir dist src/index.html && mkdir -p dist/styles && cp src/styles/output.css dist/styles/ && deno run -A scripts/copy_redirects.ts",
+    "bundle": "deno bundle --outdir dist src/index.html && mkdir -p dist/styles && cp src/styles/output.css dist/styles/ && deno run -A scripts/copy_static.ts",
     "clean": "rm -rf dist",
     "tailwind:build": "npx tailwindcss -i src/styles/tailwind.css -o src/styles/output.css --config tailwind.config.js",
     "tailwind:watch": "npx tailwindcss -i src/styles/tailwind.css -o src/styles/output.css --config tailwind.config.js --watch",
