@@ -27,13 +27,7 @@ export default function Counter({ initial = 0, resetTo = 0 }: Props) {
   const isAtReset = createMemo(() => count() === resetTo);
 
   return (
-    <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-4">
-      <header class="mb-4">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white m-0">
-          Contador
-        </h2>
-      </header>
-
+    <article class="space-y-4">
       <div class="grid gap-1 mb-3">
         <div class="text-gray-900 dark:text-white">
           Valor: <span class="font-semibold">{count}</span>

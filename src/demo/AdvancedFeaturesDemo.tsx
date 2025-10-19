@@ -12,7 +12,7 @@ export default function AdvancedFeaturesDemo() {
 
   const addLog = (message: string) => {
     setLogs(
-      (prev) => [...prev, `${new Date().toLocaleTimeString()}: ${message}`],
+      (prev) => [...prev, `${new Date().toLocaleTimeString()} ${message}`],
     );
   };
 
@@ -52,16 +52,7 @@ export default function AdvancedFeaturesDemo() {
   });
 
   return (
-    <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-4">
-      <header class="mb-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          Recursos Avançados: onMount & onCleanup
-        </h2>
-        <p class="text-gray-600 dark:text-gray-400">
-          Demonstração de lifecycle e limpeza de recursos
-        </p>
-      </header>
-
+    <article class="space-y-4">
       <div class="space-y-4">
         <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
           <p class="text-gray-900 dark:text-white mb-2">

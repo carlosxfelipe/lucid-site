@@ -87,13 +87,7 @@ Seniores: ${seniors.length} | Juniores: ${juniors.length}`,
         </p>
       </header>
 
-      <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-        <header class="mb-6">
-          <h4 class="text-xl font-semibold text-gray-900 dark:text-white">
-            Resumo
-          </h4>
-        </header>
-
+      <article class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <article class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
             <header class="mb-2">

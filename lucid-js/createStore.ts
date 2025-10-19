@@ -1,4 +1,4 @@
-import { createEffect, createSignal } from "@lucid/index.ts";
+import { createEffect, createSignal } from "./core.ts";
 
 type Listener = () => void;
 type SetFn<T> = Partial<T> | ((prev: T) => Partial<T>);

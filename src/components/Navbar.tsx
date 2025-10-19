@@ -43,6 +43,19 @@ export default function Navbar({ currentPath = "/" }: Props) {
           })}
         </ul>
 
+        {/* GitHub Link */}
+        <a
+          href="https://github.com/carlosxfelipe/lucid"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Ver repositório no GitHub"
+          title="Ver repositório no GitHub"
+          class="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 mr-4"
+        >
+          <Icon name="github" size={20} ariaLabel="GitHub" />
+          <span class="hidden md:inline">GitHub</span>
+        </a>
+
         {/* Vertical separator */}
         <span class="w-px h-6 bg-gray-200 dark:bg-gray-600 mr-4 flex-shrink-0">
         </span>
