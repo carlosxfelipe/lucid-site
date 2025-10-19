@@ -51,7 +51,7 @@ export function createStore<T extends object>(
   const snap = load();
   setStateSignal(snap ? Object.assign({}, base, snap) : base);
 
-  let t: number | null = null;
+  let t: ReturnType<typeof globalThis.setTimeout> | null = null;
   function persist(s: T) {
     if (!opts.persist) return;
     if (t) globalThis.clearTimeout(t);
