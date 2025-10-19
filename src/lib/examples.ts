@@ -22,7 +22,7 @@ export const fullExample = `<!DOCTYPE html>
     </main>
 
     <script type="module">
-      import * as Lucid from "./lucid.min.js";
+      import * as Lucid from 'https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/dist/lucid.min.js';
       const { h, mount, createSignal, createMemo, Show, For, batch } = Lucid;
 
       const App = () => {

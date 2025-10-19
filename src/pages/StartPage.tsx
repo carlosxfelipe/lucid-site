@@ -5,12 +5,12 @@ import { fullExample } from "@lib/examples.ts";
 
 export default function StartPage() {
   const lucidCDN =
-    "https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/cdn/lucid.js";
+    "https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/dist/lucid.js";
   const lucidCDNMin =
-    "https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/cdn/lucid.min.js";
+    "https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/dist/lucid.min.js";
 
-  const importESM = `import * as Lucid from 
-  "https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/cdn/lucid.min.js";`;
+  const importESM =
+    `import * as Lucid from 'https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/dist/lucid.min.js';`;
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);

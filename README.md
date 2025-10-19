@@ -102,8 +102,8 @@ biblioteca ou integrá-la em uma página estática, playground online ou projeto
 leve.
 
 ```txt
-https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/cdn/lucid.js
-https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/cdn/lucid.min.js
+https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/dist/lucid.js
+https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/dist/lucid.min.js
 ```
 
 ## Licença
