@@ -1,6 +1,6 @@
 import { h } from "@lucid/index.ts";
 import Layout from "@layout/Layout.tsx";
-import Tailwind from "@demo/Tailwind.tsx";
+import TailwindCard from "@demo/TailwindCard.tsx";
 
 export default function HomePage() {
   return (
@@ -122,7 +122,7 @@ export default function HomePage() {
         </section>
 
         <section id="tailwind" class="my-8">
-          <Tailwind />
+          <TailwindCard />
         </section>
       </main>
     </Layout>

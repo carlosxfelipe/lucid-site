@@ -1,6 +1,6 @@
 import { h } from "@lucid/index.ts";
 
-export default function Tailwind() {
+export default function TailwindCard() {
   return (
     <div class="w-full bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
       <div class="flex flex-col lg:flex-row">
