@@ -3,49 +3,119 @@ export const fullExample = `<!DOCTYPE html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contador Interativo com Lucid.js</title>
+    <title>Contador Persistente com Lucid.js</title>
     <style>
-      body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; }
-      .container { max-width: 600px; margin: 0 auto; }
-      h1, h2 { text-align: center; }
-      button { margin: 4px; padding: 8px 12px; cursor: pointer; }
-      .tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
-      .tag { padding: 2px 6px; border: 1px solid #ccc; border-radius: 4px; }
-      .muted { color: #666; text-align: center; }
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 0;
+        padding: 16px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      h1, h2 {
+        text-align: center;
+      }
+      button {
+        margin: 4px;
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+      .tags {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      .tag {
+        padding: 2px 6px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .muted {
+        color: #666;
+        text-align: center;
+      }
     </style>
   </head>
 
   <body>
     <main class="container">
-      <h1>Contador Interativo</h1>
+      <h1>Contador Persistente</h1>
       <div id="app"></div>
     </main>
 
     <script type="module">
-      import * as Lucid from 'https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/dist/lucid.min.js';
-      const { h, mount, createSignal, createMemo, Show, For, batch } = Lucid;
+      import * as Lucid from "https://cdn.jsdelivr.net/gh/carlosxfelipe/lucidjs@main/dist/lucid.min.js";
+      const {
+        h,
+        mount,
+        createSignal,
+        createMemo,
+        createStore,
+        Show,
+        For,
+        batch,
+      } = Lucid;
 
       const App = () => {
-        const [count, setCount] = createSignal(0);
+        // Criando store com persistência no localStorage
+        const store = createStore(
+          (set, get) => ({
+            count: 0,
+          }),
+          {
+            name: "counter-app",
+            persist: true,
+            version: 1,
+          },
+        );
+
+        // Usando select para criar um signal reativo do count
+        const count = store.select((state) => state.count);
         const doubled = createMemo(() => count() * 2);
-        const plusTwo = () => batch(() => { setCount(c => c + 1); setCount(c => c + 1); });
+
+        // Funções para atualizar o store
+        const increment = () =>
+          store.setState((state) => ({ count: state.count + 1 }));
+        const decrement = () =>
+          store.setState((state) => ({
+            count: Math.max(0, state.count - 1),
+          }));
+        const reset = () => store.setState({ count: 0 });
+        const plusTwo = () =>
+          batch(() => {
+            increment();
+            increment();
+          });
 
         return h(
           "article",
           null,
-          h("header", null, h("h2", null, "Contador")),
+          h("header", null, h("h2", null, "Demonstração do Store")),
           h("p", null, "Valor: ", count, " • Dobro: ", doubled),
+          h(
+            "p",
+            { class: "muted", style: "font-size: 0.8em;" },
+            "💾 O valor é salvo automaticamente e restaurado ao recarregar a página",
+          ),
           h(
             "div",
             null,
-            h("button", { onClick: () => setCount(c => Math.max(0, c - 1)) }, "−1"),
-            h("button", { onClick: () => setCount(c => c + 1) }, "+1"),
+            h("button", { onClick: decrement }, "−1"),
+            h("button", { onClick: increment }, "+1"),
             h("button", { onClick: plusTwo }, "+2 (batch)"),
-            h("button", { onClick: () => setCount(0) }, "reset"),
+            h("button", { onClick: reset }, "reset"),
           ),
           Show({
             when: () => count() > 0,
-            children: h("p", { class: "muted" }, "Listando itens de 0 até ", count),
+            children: h(
+              "p",
+              { class: "muted" },
+              "Listando itens de 0 até ",
+              count,
+            ),
           }),
           h(
             "div",
