@@ -9,7 +9,7 @@ type User = {
   salary: number;
 };
 
-export default function CollectionsDemo() {
+export default function Collections() {
   const users: User[] = [
     { name: "Ana", age: 25, city: "São Paulo", role: "dev", salary: 5000 },
     {

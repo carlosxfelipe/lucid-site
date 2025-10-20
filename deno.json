@@ -30,6 +30,7 @@
     "autoprefixer": "npm:autoprefixer@^10.4.16",
     "@lucid/": "./lucid-js/",
     "@src/": "./src/",
+    "@backup/": "./src/backup/",
     "@components/": "./src/components/",
     "@demo/": "./src/demo/",
     "@icons/": "./src/icons/",

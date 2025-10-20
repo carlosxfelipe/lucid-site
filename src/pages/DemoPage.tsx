@@ -1,9 +1,9 @@
 import { h } from "@lucid/index.ts";
 import Layout from "@layout/Layout.tsx";
-// import Counter from "@demo/Counter.tsx";
-import CollectionsDemo from "../demo/CollectionsDemo.tsx";
-import AdvancedFeaturesDemo from "@demo/AdvancedFeaturesDemo.tsx";
-import CounterDemo from "@demo/CounterDemo.tsx";
+// import Counter from "@backup/Counter.tsx";
+import Collections from "@demo/Collections.tsx";
+import AdvancedFeatures from "@demo/AdvancedFeatures.tsx";
+import Counter from "@demo/Counter.tsx";
 
 export default function DemoPage() {
   return (
@@ -25,22 +25,21 @@ export default function DemoPage() {
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">
               Counter - Gerenciamento de Estado
             </h2>
-            {/* <Counter /> */}
-            <CounterDemo />
+            <Counter />
           </div>
 
           <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">
               Collections - Manipulação de Dados
             </h2>
-            <CollectionsDemo />
+            <Collections />
           </div>
 
           <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">
               Recursos Avançados - Lifecycle & Store
             </h2>
-            <AdvancedFeaturesDemo />
+            <AdvancedFeatures />
           </div>
         </section>
       </main>

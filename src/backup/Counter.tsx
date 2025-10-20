@@ -1,23 +1,29 @@
-import { batch, createMemo, createSignal, h } from "@lucid/index.ts";
+import { batch, createMemo, h } from "@lucid/index.ts";
+import { counterStore } from "@store/counter.ts";
 
 type Props = { initial?: number; resetTo?: number };
 
-export default function CounterDemo({ initial = 0, resetTo = 0 }: Props) {
-  // Signal persistente para o contador
-  const [count, setCount] = createSignal<number>(initial, {
-    key: "app.counter.signal",
-  });
+export default function Counter({ initial = 0, resetTo = 0 }: Props) {
+  // Initialize state if an initial value is provided and the current count is 0
+  if (initial !== 0 && counterStore.getState().count === 0) {
+    counterStore.setState({ count: initial });
+  }
+
+  // Reactive signals from store
+  const count = counterStore.select((s) => s.count);
   const doubled = createMemo(() => count() * 2);
 
-  // Ações
-  const inc = () => setCount((c) => c + 1);
-  const dec = () => setCount((c) => Math.max(0, c - 1));
-  const reset = (to = 0) => setCount(to);
+  // Actions from store
+  const { inc, dec, reset } = counterStore.getState();
+
+  // Increment count twice within a single batch
   const plusTwo = () =>
     batch(() => {
       inc();
       inc();
     });
+
+  // Check if the counter is already at the reset value
   const isAtReset = createMemo(() => count() === resetTo);
 
   return (

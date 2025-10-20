@@ -1,7 +1,7 @@
 import { createSignal, h, onCleanup, onMount } from "@lucid/index.ts";
 import { advancedDemoStore } from "@store/advancedDemo.ts";
 
-export default function AdvancedFeaturesDemo() {
+export default function AdvancedFeatures() {
   // Store para dados persistentes
   const count = advancedDemoStore.select((state) => state.count);
   const { increment } = advancedDemoStore.getState();
