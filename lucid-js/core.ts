@@ -63,9 +63,28 @@ export function batch<T>(f: () => T): T {
 
 export function createSignal<T>(
   initial: T,
+  options?: {
+    key?: string;
+    serialize?: (v: T) => string;
+    deserialize?: (s: string) => T;
+  },
 ): [() => T, (v: T | ((p: T) => T)) => void] {
+  let value = initial;
+  const key = options?.key;
+  const serialize = options?.serialize ?? JSON.stringify;
+  const deserialize = options?.deserialize ??
+    ((s: string) => JSON.parse(s) as T);
+
+  // If a key is provided, try to restore value from localStorage
+  if (key) {
+    try {
+      const stored = localStorage.getItem(key);
+      if (stored !== null) value = deserialize(stored);
+    } catch { /* ignore deserialization errors */ }
+  }
+
   const s: Signal<T> = {
-    value: initial,
+    value,
     subs: new Set(),
     get() {
       if (CURRENT) {
@@ -80,6 +99,11 @@ export function createSignal<T>(
         : next;
       if (Object.is(v, s.value)) return;
       s.value = v;
+      if (key) {
+        try {
+          localStorage.setItem(key, serialize(v));
+        } catch { /* ignore serialization errors */ }
+      }
       for (const sub of s.subs) PENDING.add(sub);
       flush();
     },

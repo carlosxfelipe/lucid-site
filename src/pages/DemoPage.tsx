@@ -1,8 +1,9 @@
 import { h } from "@lucid/index.ts";
 import Layout from "@layout/Layout.tsx";
-import Counter from "../demo/Counter.tsx";
+// import Counter from "@demo/Counter.tsx";
 import CollectionsDemo from "../demo/CollectionsDemo.tsx";
 import AdvancedFeaturesDemo from "@demo/AdvancedFeaturesDemo.tsx";
+import CounterDemo from "@demo/CounterDemo.tsx";
 
 export default function DemoPage() {
   return (
@@ -24,7 +25,8 @@ export default function DemoPage() {
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">
               Counter - Gerenciamento de Estado
             </h2>
-            <Counter />
+            {/* <Counter /> */}
+            <CounterDemo />
           </div>
 
           <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
