@@ -1,7 +1,7 @@
 import { h } from "@lucid/index.ts";
 import Layout from "@layout/Layout.tsx";
 import Icon from "@icons/Icon.tsx";
-import { fullExample } from "@lib/examples.ts";
+import { fullExample } from "@src/miscellaneous/examples.ts";
 
 export default function StartPage() {
   const lucidCDN =

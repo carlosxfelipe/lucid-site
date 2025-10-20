@@ -111,6 +111,30 @@ export function createSignal<T>(
   return [() => s.get(), (v) => s.set(v)];
 }
 
+// Persistent signal helper (SolidJS-like API)
+export function createStorageSignal<T>(
+  key: string,
+  initial: T,
+): [() => T, (v: T | ((p: T) => T)) => void] {
+  let value = initial;
+  try {
+    const stored = localStorage.getItem(key);
+    if (stored !== null) value = JSON.parse(stored);
+    // deno-lint-ignore no-empty
+  } catch {}
+  const [get, set] = createSignal<T>(value);
+  return [
+    get,
+    (v) => {
+      set(v);
+      try {
+        localStorage.setItem(key, JSON.stringify(get()));
+        // deno-lint-ignore no-empty
+      } catch {}
+    },
+  ];
+}
+
 export function createMemo<T>(calc: () => T): () => T {
   const [get, set] = createSignal<T>(undefined as unknown as T);
   createEffect(() => set(calc()));

@@ -1,12 +1,10 @@
-import { batch, createMemo, createSignal, h } from "@lucid/index.ts";
+import { batch, createMemo, createStorageSignal, h } from "@lucid/index.ts";
 
 type Props = { initial?: number; resetTo?: number };
 
 export default function Counter({ initial = 0, resetTo = 0 }: Props) {
   // Signal persistente para o contador
-  const [count, setCount] = createSignal<number>(initial, {
-    key: "app.counter.signal",
-  });
+  const [count, setCount] = createStorageSignal("app.counter.signal", initial);
   const doubled = createMemo(() => count() * 2);
 
   // Ações
