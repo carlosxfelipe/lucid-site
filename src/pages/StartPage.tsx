@@ -318,13 +318,32 @@ cd lucid`}
                 <p class="text-lg font-medium text-gray-900 dark:text-white mb-3">
                   Rodar o projeto:
                 </p>
-                <CodeBlock code={`deno task start`} />
-                <small class="block mt-2 text-gray-600 dark:text-gray-400">
-                  Executa limpeza, gera bundle e inicia em{" "}
-                  <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono">
-                    http://localhost:8000
-                  </code>.
-                </small>
+                <ol class="space-y-2 text-gray-600 dark:text-gray-300 pl-6">
+                  <li class="flex items-start sm:items-center">
+                    <span class="bg-blue-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5 sm:mt-0">
+                      1
+                    </span>
+                    <span>Instalar dependências npm (Tailwind):</span>
+                  </li>
+                  <li class="pl-9">
+                    <CodeBlock code={`npm i`} />
+                  </li>
+                  <li class="flex items-start sm:items-center">
+                    <span class="bg-blue-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5 sm:mt-0">
+                      2
+                    </span>
+                    <span>Rodar o projeto:</span>
+                  </li>
+                  <li class="pl-9">
+                    <CodeBlock code={`deno task start`} />
+                    <small class="block mt-2 text-gray-600 dark:text-gray-400">
+                      Executa limpeza, gera bundle e inicia em{" "}
+                      <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono">
+                        http://localhost:8000
+                      </code>.
+                    </small>
+                  </li>
+                </ol>
               </div>
             </div>
 
